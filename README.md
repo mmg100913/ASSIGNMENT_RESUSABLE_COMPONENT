@@ -75,10 +75,4 @@ Each trigger is a real `button` with `aria-expanded` and `aria-controls`. Each p
 
 The package is configured with `main`, `module`, `types`, and `exports` entries so consumers can import the compiled component from the package root. `prepublishOnly` runs linting, tests, and the production build before a publish attempt. The package is not published as part of this assessment, but the repository is ready for that workflow.
 
-## Future Improvements
 
-- Add a CI workflow that runs install, lint, test, and build on pull requests.
-- Publish generated API documentation from TypeScript types.
-- Introduce design tokens for spacing, color, border, and motion values.
-- Add package publishing automation with changesets once there are multiple components.
-- Add axe-powered accessibility checks to supplement the existing semantic tests.
