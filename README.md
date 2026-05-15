@@ -7,7 +7,9 @@ A compact React and TypeScript component-library foundation built around an acce
 - **React + TypeScript**: common in design-system work, with strong prop contracts for consuming teams.
 - **Vite**: fast local development and straightforward library-mode output.
 - **Vitest + React Testing Library**: browser-like tests with user-event interactions that match how the component is consumed.
+- **Storybook**: documents component states in isolation and gives designers/engineers a shared review surface.
 - **ESLint + Prettier**: separated code-quality and formatting concerns so future contributors get predictable feedback.
+- **Vite library mode**: uses Rollup internally to produce ESM and UMD bundles plus generated TypeScript declarations.
 - **CSS alongside the component**: keeps the package dependency-light while leaving room to move to tokens or CSS modules later.
 
 ## Getting Started
@@ -19,6 +21,16 @@ npm run dev
 
 The demo renders at the local Vite URL printed in the terminal.
 
+## Local Preview
+
+Vite demo:
+
+![Accordion rendered in the local Vite demo](docs/screenshots/vite-demo.png)
+
+Storybook component review:
+
+![Accordion stories rendered in Storybook](docs/screenshots/storybook-accordion.png)
+
 ## Useful Scripts
 
 ```bash
@@ -26,6 +38,8 @@ npm run test
 npm run lint
 npm run format
 npm run build
+npm run storybook
+npm run build:storybook
 ```
 
 ## Component API
@@ -55,11 +69,14 @@ import { Accordion } from 'dls-accordion-library';
 
 ## Accessibility Notes
 
-Each trigger is a real `button` with `aria-expanded` and `aria-controls`. Each panel region has `aria-labelledby` pointing back to its trigger. Collapsed regions stay mounted and hidden so the ARIA relationship remains valid, while the panel body content is only rendered while expanded.
+Each trigger is a real `button` with `aria-expanded` and `aria-controls`. Each panel region has `aria-labelledby` pointing back to its trigger. Collapsed regions stay mounted and hidden so the ARIA relationship remains valid, while the panel body content is only rendered while expanded. Tests cover pointer interaction, keyboard activation, tab order, and the ARIA relationships from trigger to region.
+
+## Distribution Notes
+
+The package is configured with `main`, `module`, `types`, and `exports` entries so consumers can import the compiled component from the package root. `prepublishOnly` runs linting, tests, and the production build before a publish attempt. The package is not published as part of this assessment, but the repository is ready for that workflow.
 
 ## Future Improvements
 
-- Add Storybook or Ladle for visual review, usage examples, and interaction documentation.
 - Add a CI workflow that runs install, lint, test, and build on pull requests.
 - Publish generated API documentation from TypeScript types.
 - Introduce design tokens for spacing, color, border, and motion values.

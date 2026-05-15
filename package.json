@@ -1,22 +1,41 @@
 {
   "name": "dls-accordion-library",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "description": "A small React and TypeScript component library foundation with an accessible Accordion component.",
+  "license": "MIT",
   "main": "./dist/dls-accordion-library.umd.cjs",
   "module": "./dist/dls-accordion-library.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/dls-accordion-library.js",
+      "require": "./dist/dls-accordion-library.umd.cjs"
+    },
+    "./styles.css": "./dist/dls-accordion-library.css"
+  },
   "files": [
     "dist"
   ],
   "sideEffects": [
     "**/*.css"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmg100913/ASSIGNMENT_RESUSABLE_COMPONENT.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -p tsconfig.build.json && vite build",
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
     "preview": "vite preview --host 127.0.0.1",
+    "storybook": "storybook dev -p 6006 --host 127.0.0.1",
+    "build:storybook": "storybook build",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
@@ -29,6 +48,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
+    "@storybook/addon-docs": "^10.4.0",
+    "@storybook/react-vite": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -43,6 +64,7 @@
     "prettier": "^3.5.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "storybook": "^10.4.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.32.1",
     "vite": "^6.3.5",

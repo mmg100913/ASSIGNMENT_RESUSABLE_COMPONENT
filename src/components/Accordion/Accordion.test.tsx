@@ -108,6 +108,32 @@ describe('Accordion', () => {
         expect(document.getElementById(labelledBy!)).toBeInTheDocument();
       });
     });
+
+    test('can expand and collapse a panel with the keyboard', async () => {
+      const { user } = renderWithUser(renderAccordion());
+      const secondButton = screen.getByRole('button', { name: /panel two/i });
+
+      secondButton.focus();
+      await user.keyboard('{Enter}');
+      expect(screen.getByText('Content for panel two')).toBeVisible();
+
+      await user.keyboard(' ');
+      expect(screen.queryByText('Content for panel two')).toBeNull();
+    });
+
+    test('moves focus through the panel triggers in document order', async () => {
+      const { user } = renderWithUser(renderAccordion());
+      const buttons = screen.getAllByRole('button');
+
+      await user.tab();
+      expect(buttons[0]).toHaveFocus();
+
+      await user.tab();
+      expect(buttons[1]).toHaveFocus();
+
+      await user.tab();
+      expect(buttons[2]).toHaveFocus();
+    });
   });
 
   test('supports controlled expanded state changes', async () => {
